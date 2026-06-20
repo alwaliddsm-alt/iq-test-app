@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق قياس معدل الذكاء - IQ Test App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- الشاشة الرئيسية -->
+        <div id="homeScreen" class="screen active">
+            <div class="home-content">
+                <h1>🧠 قياس معدل الذكاء</h1>
+                <p class="subtitle">اختبر مستوى ذكائك من خلال أسئلة متنوعة</p>
+                
+                <div class="info-box">
+                    <h3>معلومات عن الاختبار:</h3>
+                    <ul>
+                        <li>✅ عدد الأسئلة: 20 سؤال</li>
+                        <li>⏱️ المدة المقررة: 30 دقيقة</li>
+                        <li>📊 أنواع الأسئلة: رياضيات، منطق، لغة، إدراك بصري</li>
+                        <li>📈 النتائج تُحفظ تلقائياً</li>
+                    </ul>
+                </div>
+
+                <div class="input-section">
+                    <input type="text" id="userName" placeholder="أدخل اسمك" class="input-field">
+                    <button onclick="startTest()" class="btn btn-primary">ابدأ الاختبار</button>
+                </div>
+
+                <button onclick="goToStats()" class="btn btn-secondary">عرض الإحصائيات</button>
+            </div>
+        </div>
+
+        <!-- شاشة الاختبار -->
+        <div id="testScreen" class="screen">
+            <div class="test-header">
+                <div class="test-info">
+                    <span>السؤال <span id="questionNumber">1</span> من 20</span>
+                    <span id="timerDisplay">30:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="test-content">
+                <h2 id="questionText"></h2>
+                <div id="optionsContainer" class="options-container"></div>
+            </div>
+
+            <div class="test-footer">
+                <button onclick="previousQuestion()" class="btn btn-secondary" id="prevBtn" style="display:none;">السابق</button>
+                <button onclick="nextQuestion()" class="btn btn-primary" id="nextBtn">التالي</button>
+                <button onclick="finishTest()" class="btn btn-danger" id="finishBtn" style="display:none;">إنهاء الاختبار</button>
+            </div>
+        </div>
+
+        <!-- شاشة النتائج -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-content">
+                <h1>🎉 تم انهاء الاختبار</h1>
+                <div class="result-box">
+                    <div class="iq-score" id="iqScore">115</div>
+                    <p class="score-label">معدل الذكاء (IQ)</p>
+                </div>
+
+                <div class="result-details">
+                    <div class="detail-item">
+                        <span class="label">الاسم:</span>
+                        <span id="resultName"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">عدد الإجابات الصحيحة:</span>
+                        <span id="correctAnswers"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">النسبة المئوية:</span>
+                        <span id="percentage"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">التصنيف:</span>
+                        <span id="classification"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">الوقت المستغرق:</span>
+                        <span id="timeSpent"></span>
+                    </div>
+                </div>
+
+                <div class="classification-box" id="classificationBox"></div>
+
+                <div class="result-actions">
+                    <button onclick="goHome()" class="btn btn-primary">العودة للرئيسية</button>
+                    <button onclick="saveToGoogle()" class="btn btn-secondary">حفظ على Google Sheets</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- شاشة الإحصائيات -->
+        <div id="statsScreen" class="screen">
+            <div class="stats-content">
+                <h1>📊 الإحصائيات</h1>
+                <div id="statsContainer" class="stats-container"></div>
+                <button onclick="goHome()" class="btn btn-primary">العودة للرئيسية</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
