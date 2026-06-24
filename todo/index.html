@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق قائمة المهام - To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- الرأس -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-tasks"></i> قائمة المهام</h1>
+                <button id="themeToggle" class="theme-toggle" title="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- القسم الرئيسي -->
+        <main class="main">
+            <!-- قسم الإدخال -->
+            <section class="input-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="taskInput" 
+                        placeholder="أضف مهمة جديدة..."
+                        class="input-field"
+                    >
+                    <select id="categorySelect" class="category-select">
+                        <option value="all">جميع التصنيفات</option>
+                        <option value="work">🏢 عمل</option>
+                        <option value="personal">👤 شخصي</option>
+                        <option value="shopping">🛒 تسوق</option>
+                        <option value="health">💪 صحة</option>
+                        <option value="other">📌 أخرى</option>
+                    </select>
+                    <button id="addBtn" class="btn btn-add">
+                        <i class="fas fa-plus"></i> إضافة
+                    </button>
+                </div>
+            </section>
+
+            <!-- قسم الفلاتر والبحث -->
+            <section class="filter-section">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="🔍 ابحث عن مهمة..."
+                        class="search-field"
+                    >
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> الكل
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        <i class="fas fa-clock"></i> المتبقية
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check-circle"></i> المكتملة
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="sortBtn" class="btn btn-secondary" title="ترتيب المهام">
+                        <i class="fas fa-sort"></i>
+                    </button>
+                    <button id="clearBtn" class="btn btn-danger" title="حذف جميع المهام المكتملة">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- الإحصائيات -->
+            <section class="stats-section">
+                <div class="stat-item">
+                    <span class="stat-label">المجموع</span>
+                    <span class="stat-value" id="totalCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">المتبقية</span>
+                    <span class="stat-value" id="pendingCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">المكتملة</span>
+                    <span class="stat-value" id="completedCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">نسبة الإنجاز</span>
+                    <span class="stat-value" id="progressPercent">0%</span>
+                </div>
+            </section>
+
+            <!-- شريط التقدم -->
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <!-- قائمة المهام -->
+            <section class="tasks-section">
+                <div id="tasksList" class="tasks-list">
+                    <!-- المهام تُدرج هنا ديناميكياً -->
+                </div>
+                
+                <!-- رسالة عدم وجود مهام -->
+                <div id="emptyMessage" class="empty-message">
+                    <i class="fas fa-inbox"></i>
+                    <p>لا توجد مهام بعد</p>
+                    <small>أضف مهمة جديدة للبدء</small>
+                </div>
+            </section>
+        </main>
+
+        <!-- التذييل -->
+        <footer class="footer">
+            <p>تطبيق قائمة المهام | جميع البيانات محفوظة محليًا 💾</p>
+            <p>تم التطوير بواسطة <strong>alwaliddsm-alt</strong></p>
+        </footer>
+    </div>
+
+    <!-- نموذج التعديل -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تعديل المهمة</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input 
+                    type="text" 
+                    id="editInput" 
+                    placeholder="عدّل المهمة..."
+                    class="input-field"
+                >
+                <select id="editCategorySelect" class="category-select">
+                    <option value="work">🏢 عمل</option>
+                    <option value="personal">👤 شخصي</option>
+                    <option value="shopping">🛒 تسوق</option>
+                    <option value="health">💪 صحة</option>
+                    <option value="other">📌 أخرى</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" class="btn btn-secondary">إلغاء</button>
+                <button onclick="saveEdit()" class="btn btn-primary">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
